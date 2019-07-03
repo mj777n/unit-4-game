@@ -14,9 +14,15 @@
 body {
     background: skyblue;
 }
+p {
+    margin-top: 0px;
+    /* font-size: 100%; */
+}
   .crystal-image {
-    width: 100px; 
-    height: 100px;
+    width: 160px; 
+    height: 140px;
+    padding: 1px;
+    margin-top: -2px;
     }
     h1 {
     background: orangered;
@@ -31,23 +37,24 @@ body {
      font-size: 17px;
      color: green;
      font-weight: bold;
-     padding-bottom: 10px;
+     padding-bottom: 0px;
      padding-left: 10px;
-     margin-top: 15px;
-     margin-bottom: 10px;
+     margin-top: 10px;
+     margin-bottom: 6px;
      width: 40%;
-     height: 55%; 
+     height: 45%; 
     }
     #crystals {
-        padding-top: 12px;
+        padding-top: 7px;
+    
         clear: both;
         /* float: left; */
         /* display: inline; */
     }
-    .random-number-box {
+    #random-number-box {
       background: green;
       font-size: 55px;
-      height: 80px;
+      height: 85px;
       width: 250px; 
       float: left;
       padding-left: 20px;
@@ -55,9 +62,10 @@ body {
     }
     .win-lose-box {
         background: teal;
-        height: 80px;
+        height: 85px;
         width: 150px;
         padding-left: 20px;
+        padding-top: 15px;
         float: left; 
     }
     #wins {
@@ -72,8 +80,8 @@ body {
       width: 250px;
       color: white;
       font-size: 20px;
-      margin-bottom: 10px;
-      margin-top: 7px;
+      margin-bottom: 5px;
+      margin-top: 0px;
       padding-left: 20px;
       padding-top: 7px;
       float: left;  
@@ -87,8 +95,7 @@ body {
         padding-left: 20px;
         padding-top: 10px;    
         clear: both;
-    }
-    
+    }    
   </style>
 </head>
 
@@ -106,10 +113,10 @@ body {
   </div>
   
   <div class="scoreBoard">
-      <section class="random-number-box">50</section>
+      <section id="random-number-box"></section>
       <article class="win-lose-box">
         <p id="wins">WINS: </p>
-        <p id="loses">LOSSES: </p>
+        <p id="losses">LOSSES: </p>
     </article>
   </div>
   <!-- Note that this div is now empty. We will fill it dynamically -->
@@ -117,46 +124,59 @@ body {
   </div>
   
   <div id="total-score-banner">Your total score is: </div>
-  <div id="total-score-box">20</div>
+  <div id="total-score-box">0</div>
 
     <!-- JAVASCRIPT  -->
     <!-- ========================================= -->
   
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript">
+  
+  var win = 0;
+  var loss = 0;
+  var crystalNumbers = [];
+//   var random = 0;
 
-  var targetNumber = 53;
-
-  $("#number-to-guess").text(targetNumber);
+  var randomNumber = Math.floor(Math.random() * 102) + 19;
+  console.log(randomNumber);
+  document.getElementById("random-number-box").innerHTML=randomNumber;
 
   var counter = 0;
-
   // Now for the hard part. Creating multiple crystals each with their own unique number value.
-
   // We begin by expanding our array to include four options.
-  var numberOptions = [10, 5, 3, 7];
+//   var numberOptions = [10, 5, 3, 7];
 
   // Next we create a for loop to create crystals for every numberOption.
-  for (var i = 0; i < numberOptions.length; i++) {
-
+  var images = [
+  "assets/images/diamond.jpg",
+  "assets/images/crystal.jpg",
+  "assets/images/crystal_pink.jpg",
+  "assets/images/crystal_rainbow.jpg",
+  ]
+  var imageCrystal = [];
+  for (var i = 0; i < images.length; i++) {
+    crystalNumbers[i] = Math.floor(Math.random() * 12) + 1;
+    console.log (crystalNumbers[i]);
     // For each iteration, we will create an imageCrystal
     var imageCrystal = $("<img>");
-
     // First each crystal will be given the class ".crystal-image".
     // This will allow the CSS to take effect.
     imageCrystal.addClass("crystal-image");
 
     // Each imageCrystal will be given a src link to the crystal image
     // imageCrystal.attr("src", "http://cdn.playbuzz.com/cdn/35910209-2844-45c0-b099-f4d82878d54f/00261fda-4062-4096-81fd-8cf96b9034e8.jpg");
-    imageCrystal.attr("src", "assets/images/diamond.jpg");
+    // imageCrystal.attr("src", "assets/images/crystal.jpg");
+       imageCrystal.attr("src", images[i]);
+       console.log(imageCrystal);
 
     // Each imageCrystal will be given a data attribute called data-crystalValue.
     // This data attribute will be set equal to the array value.
-    imageCrystal.attr("data-crystalvalue", numberOptions[i]);
+    imageCrystal.attr("data-crystalvalue", crystalNumbers[i]);
 
     // Lastly, each crystal image (with all it classes and attributes) will get added to the page.
+    // $("#crystals").append(imageCrystal);
     $("#crystals").append(imageCrystal);
-  }
+  }  // end for loop
 
   // This time, our click event applies to every single crystal on the page. Not just one.
   $(".crystal-image").on("click", function() {
@@ -167,23 +187,29 @@ body {
     // Since attributes on HTML elements are strings, we must convert it to an integer before adding to the counter
 
     var crystalValue = ($(this).attr("data-crystalvalue"));
+    // console.log (crystalValue);
     crystalValue = parseInt(crystalValue);
+    console.log (crystalValue); 
     // We then add the crystalValue to the user's "counter" which is a global variable.
     // Every click, from every crystal adds to the global counter.
     counter += crystalValue;
 
     // All of the same game win-lose logic applies. So the rest remains unchanged.
-    alert("New score: " + counter);
-
-    if (counter === targetNumber) {
+    // alert("New score: " + counter);
+    document.getElementById("total-score-box").innerHTML=counter;
+    if (counter === randomNumber) {     
+      win ++;
+      document.getElementById("wins").innerHTML="WINS: "+win;
       alert("You win!");
     }
 
-    else if (counter >= targetNumber) {
+    else if (counter >= randomNumber) {     
+      loss ++;
+      document.getElementById("losses").innerHTML="LOSSES: "+loss;
       alert("You lose!!");
     }
-
   });
+
 
   </script>
 </body>
