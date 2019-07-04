@@ -1,0 +1,88 @@
+/*  CSS Styling for Crystal-Collector */
+* {
+  box-sizing: border-box;
+}
+body {
+  background-image:url(assets/images/weather.png);
+  background-color: aquamarine;
+  /* Background courtesy of subtlepattern.com */
+}
+p {
+  margin-top: 0px;
+}
+.crystal-image {
+  width: 155px; 
+  height: 135px;
+  padding: 1px;
+  margin-top: -2px;
+}
+h1 {
+  background: orangered;
+  display: inline;
+  line-height: 150%;
+  font-size: 50px;
+  color: white;
+  padding: 15px;
+}
+.instructions {
+  background: #fed0bb;
+  font-size: 17px;
+  color: green;
+  font-weight: bold;
+  padding-bottom: 0px;
+  padding-left: 10px;
+  margin-top: 10px;
+  margin-bottom: 6px;
+  width: 41%;
+  height: 45%; 
+}
+#crystals {
+  padding-top: 7px;  
+  clear: both;
+}
+#random-number-box {
+  background: #31b26d;
+  font-size: 55px;
+  height: 85px;
+  width: 250px; 
+  float: left;
+  padding-left: 20px;
+  padding-top: 10px;
+}
+.win-lose-box {
+  background: #47edc9;
+  height: 85px;
+  width: 150px;
+  padding-left: 20px;
+  padding-top: 15px;
+  float: left; 
+}
+/* #wins {
+  p id /space for running wins total
+} */
+/* #losses {
+  p id /space for running losses total
+} */ 
+#total-score-banner {
+  background: #11aa93;
+  height: 35px;
+  width: 250px;
+  color: white;
+  font-size: 20px;
+  margin-bottom: 5px;
+  margin-top: 0px;
+  padding-left: 20px;
+  padding-top: 7px;
+  float: left;  
+}
+#total-score-box {
+  background: #11aa93;
+  color: white;
+  font-size: 40px;
+  width: 250px;
+  height: 80px;
+  padding-left: 20px;
+  padding-top: 10px;    
+  clear: both;
+}    
+ 

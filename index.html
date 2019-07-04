@@ -4,213 +4,51 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>First Draft</title>
-
-  <style type="text/css">
-
-* {
-  box-sizing: border-box;
-}
-body {
-    background: skyblue;
-}
-p {
-    margin-top: 0px;
-    /* font-size: 100%; */
-}
-  .crystal-image {
-    width: 160px; 
-    height: 140px;
-    padding: 1px;
-    margin-top: -2px;
-    }
-    h1 {
-    background: orangered;
-    display: inline;
-    line-height: 150%;
-    font-size: 50px;
-    color: white;
-    padding: 15px;
-    }
-    .instructions {
-     background: lightpink;
-     font-size: 17px;
-     color: green;
-     font-weight: bold;
-     padding-bottom: 0px;
-     padding-left: 10px;
-     margin-top: 10px;
-     margin-bottom: 6px;
-     width: 40%;
-     height: 45%; 
-    }
-    #crystals {
-        padding-top: 7px;
-    
-        clear: both;
-        /* float: left; */
-        /* display: inline; */
-    }
-    #random-number-box {
-      background: green;
-      font-size: 55px;
-      height: 85px;
-      width: 250px; 
-      float: left;
-      padding-left: 20px;
-      padding-top: 10px;
-    }
-    .win-lose-box {
-        background: teal;
-        height: 85px;
-        width: 150px;
-        padding-left: 20px;
-        padding-top: 15px;
-        float: left; 
-    }
-    #wins {
-        /* p id /space for running wins */
-    }
-    #losses {
-        /* p id /space for running losses */
-    }
-    #total-score-banner {
-      background: red;
-      height: 35px;
-      width: 250px;
-      color: white;
-      font-size: 20px;
-      margin-bottom: 5px;
-      margin-top: 0px;
-      padding-left: 20px;
-      padding-top: 7px;
-      float: left;  
-    }
-    #total-score-box {
-        background: red;
-        color: white;
-        font-size: 40px;
-        width: 250px;
-        height: 80px;
-        padding-left: 20px;
-        padding-top: 10px;    
-        clear: both;
-    }    
-  </style>
+  <title>Crystal Collector Game</title>
+  <link rel="stylesheet" type="text/css" href="assets/css/style.css"> 
 </head>
 
-<body>
-  <header>
+<body> <!-- Begin HTML body -->
+  <header>  <!-- Header setup-->
     <h1>CrystalsCollector!</h1>
-  <!-- <h1>Number to Guess: <span id="number-to-guess"></span></h1> -->
   </header>  
-  <div class="instructions">
-    <p><br>You will be given a random numbers at the start of the game.</p>
+  <div class="instructions"> <!-- Setup div for instruction text -->
+    <p><br>You will be given a random number at the start of the game.</p>
     <p>There are four crystals below. By clicking on a crystal you will add a specific amount of points to your total score.</p>
     <p>You win the game by matching YOUR total score to the random number.  You lose the game if your total score goes above the random number.</p>
     <p>The value of each crystal is hidden from you until you click on it.</p>
     <p>Each time when the game starts, the game will change the value of each crystal.</p>
   </div>
   
-  <div class="scoreBoard">
+  <div class="scoreBoard">  <!-- div for random, score, win/loss counters -->
       <section id="random-number-box"></section>
       <article class="win-lose-box">
         <p id="wins">WINS: </p>
         <p id="losses">LOSSES: </p>
     </article>
   </div>
-  <!-- Note that this div is now empty. We will fill it dynamically -->
-  <div id="crystals">
-  </div>
-  
+
+  <!-- This div will display the images of the crystals, filled dynamically -->
+  <div id="crystals"></div>
+  <!-- This div holds the banner and total score -->
   <div id="total-score-banner">Your total score is: </div>
   <div id="total-score-box">0</div>
 
-    <!-- JAVASCRIPT  -->
-    <!-- ========================================= -->
+  <!-- JAVASCRIPT code in /assets/javascript/game.js -->
+  <!-- ========================================= -->
   
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript">
-  
-  var win = 0;
-  var loss = 0;
-  var crystalNumbers = [];
-//   var random = 0;
+  </script> -->
 
-  var randomNumber = Math.floor(Math.random() * 102) + 19;
-  console.log(randomNumber);
-  document.getElementById("random-number-box").innerHTML=randomNumber;
+   <!-- begin Javascript block --> 
+ 
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+   <script src="assets/javascript/game.js"></script>
+   <script type="text/javascript"></script>
+   <script>
+     crystalCollector();
+   </script>
 
-  var counter = 0;
-  // Now for the hard part. Creating multiple crystals each with their own unique number value.
-  // We begin by expanding our array to include four options.
-//   var numberOptions = [10, 5, 3, 7];
-
-  // Next we create a for loop to create crystals for every numberOption.
-  var images = [
-  "assets/images/diamond.jpg",
-  "assets/images/crystal.jpg",
-  "assets/images/crystal_pink.jpg",
-  "assets/images/crystal_rainbow.jpg",
-  ]
-  var imageCrystal = [];
-  for (var i = 0; i < images.length; i++) {
-    crystalNumbers[i] = Math.floor(Math.random() * 12) + 1;
-    console.log (crystalNumbers[i]);
-    // For each iteration, we will create an imageCrystal
-    var imageCrystal = $("<img>");
-    // First each crystal will be given the class ".crystal-image".
-    // This will allow the CSS to take effect.
-    imageCrystal.addClass("crystal-image");
-
-    // Each imageCrystal will be given a src link to the crystal image
-    // imageCrystal.attr("src", "http://cdn.playbuzz.com/cdn/35910209-2844-45c0-b099-f4d82878d54f/00261fda-4062-4096-81fd-8cf96b9034e8.jpg");
-    // imageCrystal.attr("src", "assets/images/crystal.jpg");
-       imageCrystal.attr("src", images[i]);
-       console.log(imageCrystal);
-
-    // Each imageCrystal will be given a data attribute called data-crystalValue.
-    // This data attribute will be set equal to the array value.
-    imageCrystal.attr("data-crystalvalue", crystalNumbers[i]);
-
-    // Lastly, each crystal image (with all it classes and attributes) will get added to the page.
-    // $("#crystals").append(imageCrystal);
-    $("#crystals").append(imageCrystal);
-  }  // end for loop
-
-  // This time, our click event applies to every single crystal on the page. Not just one.
-  $(".crystal-image").on("click", function() {
-
-    // Determining the crystal's value requires us to extract the value from the data attribute.
-    // Using the $(this) keyword specifies that we should be extracting the crystal value of the clicked crystal.
-    // Using the .attr("data-crystalvalue") allows us to grab the value out of the "data-crystalvalue" attribute.
-    // Since attributes on HTML elements are strings, we must convert it to an integer before adding to the counter
-
-    var crystalValue = ($(this).attr("data-crystalvalue"));
-    // console.log (crystalValue);
-    crystalValue = parseInt(crystalValue);
-    console.log (crystalValue); 
-    // We then add the crystalValue to the user's "counter" which is a global variable.
-    // Every click, from every crystal adds to the global counter.
-    counter += crystalValue;
-
-    // All of the same game win-lose logic applies. So the rest remains unchanged.
-    // alert("New score: " + counter);
-    document.getElementById("total-score-box").innerHTML=counter;
-    if (counter === randomNumber) {     
-      win ++;
-      document.getElementById("wins").innerHTML="WINS: "+win;
-      alert("You win!");
-    }
-
-    else if (counter >= randomNumber) {     
-      loss ++;
-      document.getElementById("losses").innerHTML="LOSSES: "+loss;
-      alert("You lose!!");
-    }
-  });
-
-
-  </script>
 </body>
 </html>
