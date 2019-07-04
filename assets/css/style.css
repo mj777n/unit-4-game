@@ -3,8 +3,8 @@
   box-sizing: border-box;
 }
 body {
-  background-image:url(assets/images/weather.png);
-  background-color: aquamarine;
+  background-image:url(weather.png);
+  /* background-color: aquamarine; */
   /* Background courtesy of subtlepattern.com */
 }
 p {

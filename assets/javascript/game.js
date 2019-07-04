@@ -94,8 +94,8 @@ var images = [
   } // end function crystalCollector
   
   function resetBoard() {
-   imageCrystal = [];
-   imageCrystal.length = 0;
+  //  imageCrystal = [];
+  //  imageCrystal.length = 0;
    $("#crystals").empty();
   }
   
